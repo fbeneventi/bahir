@@ -116,7 +116,8 @@ class MQTTReceiver(
 
       // Handles Mqtt message
       override def messageArrived(topic: String, message: MqttMessage) {
-        store(new String(message.getPayload(), StandardCharsets.UTF_8))
+        // store(new String(message.getPayload(), StandardCharsets.UTF_8))
+        store(topic + " " + new String(message.getPayload(), StandardCharsets.UTF_8))
       }
 
       override def deliveryComplete(token: IMqttDeliveryToken) {
