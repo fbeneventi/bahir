@@ -57,7 +57,11 @@ class MQTTUtils(object):
         """
         jlevel = ssc._sc._getJavaStorageLevel(storageLevel)
         helper = MQTTUtils._get_helper(ssc._sc)
-        jstream = helper.createPairedStream(ssc._jssc, brokerUrl, topics, jlevel)
+        
+        topics_array = ssc._sc._gateway.new_array(ssc._sc._jvm.String, len(topics))
+        for k in range(0,len(topics)):
+            topics_array[k] = topics[k]
+        jstream = helper.createPairedStream(ssc._jssc, brokerUrl, topics_array, jlevel)
         return DStream(jstream, ssc, UTF8Deserializer())
 
     @staticmethod
