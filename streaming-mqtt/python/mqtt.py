@@ -57,7 +57,7 @@ class MQTTUtils(object):
         """
         jlevel = ssc._sc._getJavaStorageLevel(storageLevel)
         helper = MQTTUtils._get_helper(ssc._sc)
-        jstream = helper.createStream(ssc._jssc, brokerUrl, topics, jlevel)
+        jstream = helper.createPairedStream(ssc._jssc, brokerUrl, topics, jlevel)
         return DStream(jstream, ssc, UTF8Deserializer())
 
     @staticmethod
